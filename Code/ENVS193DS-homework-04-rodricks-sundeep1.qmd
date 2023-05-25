@@ -3,9 +3,11 @@ title: "193DS HW #4"
 author: "Sundeep Rodricks"
 format: docx
 editor: visual
+warning: false
+
 ---
 
-```{r loading-packages, eval = FALSE}
+```{r loading-packages}
 library(tidyverse)
 library(here)
 library(naniar)
@@ -16,6 +18,8 @@ library(broom)
 library(flextable)
 library(ggeffects)
 library(car)
+library(dplyr)
+library(magrittr)
 ```
 
 # Problem #1
@@ -29,6 +33,32 @@ H_0: β_1 = 0
 H_a: Fish length does predict fish weight for trout perch
 
 H_a: β_1 ≠ 0
+
+## 2.
+
+```{r importing-data}
+Fish_data <- read_csv(here("data","ntl6_v12.csv"))
+    View(Fish_data)
+```
+
+```{r filtering-data}
+# filtering for trout perch
+    fish_filtered <- Fish_data %>% 
+      filter(spname == "TROUTPERCH")
+
+# filtering for weight and length for trout perch
+trout_data <- fish_filtered[, c( "length", "weight")]
+```
+
+```{r missing-data-visualization}
+gg_miss_var(trout_data) +
+      labs(caption = "Figure 1: There are 199 missing weight observations for the trout perch data and 0 missing length observations")
+
+```
+```{r eval = FALSE}
+   # getting a count of the missing observations from each variable
+    miss_var_cumsum(fish_filtered)
+```
 
 
 
