@@ -57,7 +57,16 @@ gg_miss_var(trout_data) +
 ```
 ```{r eval = FALSE}
    # getting a count of the missing observations from each variable
-    miss_var_cumsum(fish_filtered)
+    miss_var_summary(trout_data)
+```
+
+## 3. and 4.
+
+```{r making-a-model}
+modelobject <- lm(weight ~ length, data = fish_filtered)
+par(mfrow = c(2, 2))
+plot(modelobject)
+
 ```
 
 
