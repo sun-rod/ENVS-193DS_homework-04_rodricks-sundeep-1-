@@ -1,0 +1,36 @@
+---
+title: "193DS HW #4"
+author: "Sundeep Rodricks"
+format: docx
+editor: visual
+---
+
+```{r loading-packages, eval = FALSE}
+library(tidyverse)
+library(here)
+library(naniar)
+library(skimr)
+library(readr)
+library(performance)
+library(broom)
+library(flextable)
+library(ggeffects)
+library(car)
+```
+
+# Problem #1
+
+## 1.
+
+H_0: Fish length does not predict fish weight for trout perch
+
+H_0: β_1 = 0
+
+H_a: Fish length does predict fish weight for trout perch
+
+H_a: β_1 ≠ 0
+
+
+
+
+
