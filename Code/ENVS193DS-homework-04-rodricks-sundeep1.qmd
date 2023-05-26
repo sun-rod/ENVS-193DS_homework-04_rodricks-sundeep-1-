@@ -27,13 +27,13 @@ library(magrittr)
 
 ## 1.
 
-H_0: Fish length does not predict fish weight for trout perch
+H~0~: Fish length does not predict fish weight for trout perch
 
-H_0: β_1 = 0
+H~0~: β~1~ = 0
 
-H_a: Fish length does predict fish weight for trout perch
+H~a~: Fish length does predict fish weight for trout perch
 
-H_a: β_1 ≠ 0
+H~a~: β~1~ ≠ 0
 
 ## 2.
 
@@ -115,10 +115,43 @@ model_squares_table
 ```
 
 
-## 8 
+## 8.
 
 The ANOVA table shows F-statistic as 1280.8 on 1 and 288 degrees of freedom, just like the summary() shows. The ANOVA table also tells us that the p-value is < 0.001, while the summary() shows the actual value of the p-value.
 
-## 9 
+## 9.
 
+The assumptions of the test seem to have been met based on the model plots. The summary() and ANOVA table indicate that the p-value is very small, so the null hypothesis should be rejected, which means that fish length does predict weight.
+
+## 10.
+
+```{r model-predictions}
+predictions <- ggpredict(modelobject, terms = "length")
+
+# predicted fish weights
+predictions
+```
+
+```{r}
+plot_predictions <- ggplot(data = fish_filtered, 
+                           aes(x = length, y = weight)) +
+  # plotting the underlying data
+  geom_point() +
+  # plotting the predictions
+  geom_line(data = predictions, 
+            aes(x = x, y = predicted), 
+            color = "blue", linewidth = 1) +
+  # then plot the 95% confidence interval from ggpredict
+  geom_ribbon(data = predictions, 
+              aes(x = x, y = predicted, ymin = conf.low, ymax = conf.high), 
+              alpha = 0.2) +
+  # theme and meaningful labels
+  theme_bw() +
+  labs(x = "Fish Length (mm)",
+       y = "Fish Weight (g)", 
+       caption = "Predicted Trout Perch weight based on length")
+
+
+plot_predictions
+```
 
