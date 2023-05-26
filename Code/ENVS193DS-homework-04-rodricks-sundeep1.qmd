@@ -117,4 +117,8 @@ model_squares_table
 
 ## 8 
 
-The ANOVA table 
+The ANOVA table shows F-statistic as 1280.8 on 1 and 288 degrees of freedom, just like the summary() shows. The ANOVA table also tells us that the p-value is < 0.001, while the summary() shows the actual value of the p-value.
+
+## 9 
+
+
