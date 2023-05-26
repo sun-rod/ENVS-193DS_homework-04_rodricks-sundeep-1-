@@ -7,6 +7,7 @@ warning: false
 
 ---
 
+Repo link: https://github.com/sun-rod/ENVS-193DS_homework-04_rodricks-sundeep-1- 
 ```{r loading-packages}
 library(tidyverse)
 library(here)
@@ -69,7 +70,51 @@ plot(modelobject)
 
 ```
 
+## 5.
+The residuals vs. fitted plot shows that the points are mostly evenly distributed above and below the red line. The red line is also close to flat, which indicates homoskedasticity.
+
+The scale-location plot has a red line that's close to flat and the points look to be randomly distributed. This also points toward homoskedasticity.
+
+The normal Q-Q plot shows that points have a positive linear relationship, with most points falling in a straight line. This indicates that the data is normally distributed.
+
+The residuals vs. leverage plot shows one point outside of the Cook's distance, which makes it an influential observation.
 
 
+## 6. 
+
+```{r summary}
+model_summary <- summary(modelobject)
+```
+
+## 7.
+
+```{r ANOVA}
+model_squares <- anova(modelobject)
+model_summary
+```
+
+```{r}
+model_squares_table <- tidy(model_squares) %>% 
+  mutate(across(sumsq:meansq, ~ round(.x, digits = 1))) %>% 
+  mutate(statistic = round(statistic, digits = 1)) %>% 
+  mutate(p.value = case_when(
+    p.value < 0.001 ~ "< 0.001"
+  )) %>% 
+  mutate(term = case_when(
+    term == "length" ~ "Length (mm)",
+    TRUE ~ term
+  )) %>% 
+  flextable() %>% 
+  set_header_labels(df = "Degrees of Freedom", 
+                    sumsq = "Sum of squares",
+                    meansq = "Mean squares",
+                    statistic = "F-statistic",
+                    p.value = "p-value")
+
+model_squares_table
+```
 
 
+## 8 
+
+The ANOVA table 
